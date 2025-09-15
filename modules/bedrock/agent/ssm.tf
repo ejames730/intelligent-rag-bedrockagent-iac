@@ -62,9 +62,13 @@ resource "aws_ssm_parameter" "action_group_lambda_sha" {
   name        = "${var.agent_name}-ag-lambda-sha"
   description = "Bedrock Agent KB Lambda Code SHA"
   type        = "SecureString"
-  value       = data.aws_lambda_function.existing.code_sha256
+  value       = "initial"
   key_id      = var.kms_key_id
   depends_on  = [aws_bedrockagent_agent_alias.bedrock_agent_alias]
+
+  lifecycle {
+    ignore_changes = [value]
+  }
 }
 
 resource "aws_ssm_parameter" "bedrock_agent_instruction_ssm_history" {

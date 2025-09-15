@@ -119,24 +119,13 @@ resource "aws_lambda_provisioned_concurrency_config" "concurrency_setup" {
   qualifier                         = aws_lambda_alias.scale_up_lambda_alias.name
 }
 
-resource "null_resource" "lambda_code_update" {
-  depends_on = [aws_lambda_function.bi_chatbot_container_lambda]
 
-  provisioner "local-exec" {
-    command = "aws lambda update-function-code --function-name ${aws_lambda_function.bi_chatbot_container_lambda.function_name} --s3-bucket ${var.code_base_bucket} --s3-key ${var.code_base_zip}  --region ${local.region}"
-  }
-
-  triggers = {
-    s3_object_version = data.aws_s3_object.initial_package_file.version_id
-    s3_object_etag    = data.aws_s3_object.initial_package_file.etag
-  }
-}
 
 
 resource "aws_cloudwatch_log_group" "lambda_log_group" {
   name              = "/aws/lambda/${aws_lambda_function.bi_chatbot_container_lambda.function_name}"
   retention_in_days = var.cloudwatch_log_group_retention
-  kms_key_id        = var.kms_key_id
+  # kms_key_id        = var.kms_key_id  # Temporarily disabled to avoid dependency issues
 }
 
 resource "aws_cloudwatch_log_stream" "lambda_log_stream" {

@@ -154,13 +154,13 @@ output "bedrock_guardrail_arn" {
 }
 
 output "vpc_endpoint_ids" {
-  value = module.vpc_endpoints[0].interface_endpoint_ids
+  value = var.enable_endpoints ? module.vpc_endpoints[0].interface_endpoint_ids : []
 }
 
 output "bedrock_vpc_endpoint_ids" {
-  value = module.vpc_endpoints[0].bedrock_interface_endpoint_ids
+  value = var.enable_endpoints ? module.vpc_endpoints[0].bedrock_interface_endpoint_ids : []
 }
 
 output "s3_endpoint_id" {
-  value = module.vpc_endpoints[0].s3_endpoint_id
+  value = var.enable_endpoints ? module.vpc_endpoints[0].s3_endpoint_id : null
 }

@@ -6,7 +6,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.69"
+      version = "~> 5.70"
     }
     random = {
       source  = "hashicorp/random"
@@ -19,15 +19,16 @@ terraform {
   }
 }
 
-
-
+# Access keys and tokens are stored in Bitwarden for profile james.emling
 provider "aws" {
-  region = "us-west-2"
+  region  = "us-west-1"
+  profile = "james.emling"
 
   default_tags {
     tags = {
-      Environment = var.env_name
-      Application = var.app_name
+      Environment   = var.env_name
+      Application   = "bedrock-agent"
+      deploy-date   = "09142025"
     }
   }
 }

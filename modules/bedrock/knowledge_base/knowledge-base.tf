@@ -13,7 +13,7 @@ resource "aws_bedrockagent_knowledge_base" "sample_kb" {
   role_arn = var.knowledge_base_role_arn
   knowledge_base_configuration {
     vector_knowledge_base_configuration {
-      embedding_model_arn = data.aws_bedrock_foundation_model.kb.model_arn
+      embedding_model_arn = "arn:aws:bedrock:us-east-1::foundation-model/amazon.titan-embed-g1-text-02:0"
     }
     type = "VECTOR"
   }
@@ -48,4 +48,3 @@ resource "aws_bedrockagent_data_source" "data_source" {
     kms_key_arn = var.kms_key_id
   }
 }
-

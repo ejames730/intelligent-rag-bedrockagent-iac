@@ -129,7 +129,7 @@ resource "aws_bedrockagent_agent_alias" "bedrock_agent_alias" {
 resource "aws_cloudwatch_log_group" "agent_invoke_log_group" {
   name              = var.bedrock_agent_invoke_log_group_name
   retention_in_days = var.cloudwatch_log_group_retention
-  kms_key_id        = var.kms_key_id
+  # kms_key_id        = var.kms_key_id  # Temporarily disabled to avoid dependency issues
 }
 
 resource "aws_cloudwatch_log_stream" "agent_invoke_log_stream" {

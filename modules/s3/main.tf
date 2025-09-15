@@ -59,6 +59,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "sample_kb_bucket_lifecycle" {
   rule {
     id     = "ABORT_INCOMPLETE_UPLOADS"
     status = "Enabled"
+    filter {}
     abort_incomplete_multipart_upload { days_after_initiation = 3 }
   }
 
@@ -72,6 +73,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "sample_kb_logging_bucket_lifec
   rule {
     id     = "ABORT_INCOMPLETE_UPLOADS"
     status = "Enabled"
+    filter {}
     abort_incomplete_multipart_upload { days_after_initiation = 3 }
   }
 

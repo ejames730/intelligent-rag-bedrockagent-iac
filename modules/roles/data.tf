@@ -32,8 +32,7 @@ data "aws_iam_policy_document" "bedrock_agent_permissions" {
   statement {
     actions = ["bedrock:InvokeModel"]
     resources = [
-      "arn:${data.aws_partition.this.partition}:bedrock:${data.aws_region.this.name}::foundation-model/anthropic.claude-3-haiku-20240307-v1:0",
-      "arn:${data.aws_partition.this.partition}:bedrock:${data.aws_region.this.name}::foundation-model/anthropic.claude-3-sonnet-20240229-v1:0"
+      "arn:aws:bedrock:us-east-1::foundation-model/amazon.titan-text-express-v1:0"
     ]
   }
   statement {
@@ -59,13 +58,7 @@ data "aws_iam_policy_document" "bedrock_agent_permissions" {
 }
 
 
-data "aws_bedrock_foundation_model" "agent" {
-  model_id = var.agent_model_id
-}
 
-data "aws_bedrock_foundation_model" "kb" {
-  model_id = var.knowledge_base_model_id
-}
 
 data "aws_iam_policy_document" "bedrock_sample_kb_assume_role" {
   statement {
@@ -90,7 +83,7 @@ data "aws_iam_policy_document" "bedrock_sample_kb_assume_role" {
 data "aws_iam_policy_document" "bedrock_sample_kb_model" {
   statement {
     actions   = ["bedrock:InvokeModel"]
-    resources = [data.aws_bedrock_foundation_model.kb.model_arn]
+    resources = ["arn:aws:bedrock:us-east-1::foundation-model/amazon.titan-embed-g1-text-02:0"]
   }
 }
 
